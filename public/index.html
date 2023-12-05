@@ -65,9 +65,8 @@
 const gameBoard = document.getElementById('gameBoard');
 const resetButton = document.getElementById('resetButton');
 
-// Function to display the game board
 function displayBoard(board) {
-    gameBoard.innerHTML = ''; // Clear the existing content of gameBoard
+    gameBoard.innerHTML = '';
     board.forEach((cell, index) => {
         const cellDiv = document.createElement('div');
         cellDiv.textContent = cell;
@@ -77,13 +76,11 @@ function displayBoard(board) {
     });
 }
 
-// Initial board display
 socket.on('updateBoard', (board) => {
-    console.log('Received board:', board); // Log the received board for debugging
+    console.log('Received board:', board);
     displayBoard(board);
 });
 
-// Handle cell click
 gameBoard.addEventListener('click', (e) => {
     if (e.target.classList.contains('cell')) {
         const position = e.target.dataset.index;
@@ -91,12 +88,10 @@ gameBoard.addEventListener('click', (e) => {
     }
 });
 
-// Handle game over
 socket.on('gameOver', (winner) => {
-    alert(`Player ${winner} wins!`);
+    alert(`GG, El jugador ${winner} ha ganado!`);
 });
 
-// Reset game
 resetButton.addEventListener('click', () => {
     socket.emit('resetGame');
 });
